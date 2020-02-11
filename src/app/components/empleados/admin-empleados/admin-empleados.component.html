@@ -1,0 +1,82 @@
+<h1 class="animated fadeIn fast">Empleados</h1>
+<div *ngIf="mensaje" class="alert alert-primary" role="alert">
+  {{mensaje}}
+</div>
+<hr>
+
+<div class="container animated fadeIn">
+  <div class="container">
+    <form>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label>Nombre</label>
+          <input type="text" class="form-control" name="nombre" [(ngModel)]="empleadoFilter.nombre">
+        </div>
+        <div class="form-group col-md-6">
+          <label>Codigo</label>
+          <input type="text" class="form-control" #codigo="ngModel" name="codigo" [(ngModel)]="empleadoFilter.codigo">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label>Inicio</label>
+          <input type="date" class="form-control" #fechaInicio="ngModel" name="fechaInicio" [(ngModel)]="empleadoFilter.fechaInicio" >
+        </div>
+        <div class="form-group col-md-6">
+          <label>Fin</label>
+          <input type="date" class="form-control" #fechaFin="ngModel" name="fechaFin" [(ngModel)]="empleadoFilter.fechaFin" >
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label>Local</label>
+          <select #idLocal="ngModel" class="form-control" name="idLocal" [(ngModel)]="empleadoFilter.idLocal">
+            <option value="0">Elija un local...</option>
+            <option *ngFor="let local of locales" [value]="local.id" >{{local.nombre}}</option>
+          </select>
+        </div>
+      </div>
+      <button (click)="buscarEmpleados()" type="button" class="btn btn btn-primary">Buscar</button>
+    </form>
+  </div>
+  <hr>
+  <div class="container">
+    <div class="form-group">
+      <button [routerLink]="['/empleado','new']" type="button" class="btn btn btn-success">Nuevo</button>
+    </div>
+  </div>
+  <div class="row" *ngIf="empleados.length == 0">
+    <div class="col-md-12">
+      <div class="alert alert-info" role="alert">
+        No se encontraron resultados.
+      </div>
+    </div>
+  </div>
+  <div class="table-responsive" *ngIf="empleados.length > 0">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Codigo</th>
+            <th scope="col">Ingreso</th>
+            <th scope="col">Local</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let empleado of empleados; index as i" >
+          <tr>
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ empleado.nombre }}</td>
+            <td>{{ empleado.codigo }}</td>
+            <td>{{ empleado.fechaIngreso }}</td>
+            <td>{{ empleado.local.nombre }}</td>
+            <td>
+              <button (click)="verEmpleado(empleado.id)"  [routerLink]="['/empleado', empleado.id]" type="button" class="btn btn-sm btn-light">Ver</button>
+              <button (click)="editarEmpleado(empleado.id)" [routerLink]="['/empleado', empleado.id,'edit']" type="button" class="btn btn-sm btn-primary">Editar</button>
+              <button (click)="borrarEmpleado(empleado)" type="button" class="btn btn-sm btn-danger" data-toggle="modal">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  </div>

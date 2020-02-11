@@ -1,0 +1,18 @@
+<form #localForm="ngForm" autocomplete="off">
+    <input type="hidden" #id="ngModel" name="id" [(ngModel)]="local.id">
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Nombre</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" #name="ngModel" name="nombre" [(ngModel)]="local.nombre">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Dirección</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" #direccion="ngModel" name="direccion" [(ngModel)]="local.direccion">
+        </div>
+    </div>
+    <hr>
+    <a [routerLink]="['/locales']" class="btn btn-light">Cancelar</a>
+    <button (click)="onSubmit(localForm)" type="button" class="btn btn-success">Guardar</button>
+</form>

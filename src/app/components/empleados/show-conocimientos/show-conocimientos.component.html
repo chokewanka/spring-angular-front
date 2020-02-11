@@ -1,0 +1,17 @@
+<div class="card-header" id="{{'heading' + i}}">
+  <h2 class="mb-0">
+    <button class="btn btn-link" type="button" data-toggle="collapse" [attr.data-target]="'#collapse' + i" aria-expanded="true" [attr.aria-controls]="'collapse' + i">
+      {{conocimiento.nombre}}
+    </button>
+  </h2>
+</div>
+<div id="{{'collapse' + i}}" class="collapse" [attr.aria-labelledby]="'heading' + i" data-parent="#acc-conocimientos">
+  <div class="card-body">
+      <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Nivel</label>
+          <div class="col-sm-10">
+              <input type="text" readonly class="form-control-plaintext" [value]="conocimiento.nivelExperiencia.nombre">
+          </div>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+<h1 class="card-columns animated fadeIn fast">Locales</h1>
+<div *ngIf="mensaje" class="alert alert-primary" role="alert">
+  {{mensaje}}
+</div>
+<hr>
+
+<div class="container animated fadeIn">
+  <div class="container">
+    <form>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label>Nombre</label>
+          <input type="text" class="form-control" name="nombre" [(ngModel)]="localFilter.nombre">
+        </div>
+      </div>
+      <button (click)="buscarLocales()" type="button" class="btn btn btn-primary">Buscar</button>
+    </form>
+  </div>
+  <hr>
+  <div class="container">
+    <div class="form-group">
+      <button [routerLink]="['/local','new']" type="button" class="btn btn btn-success">Nuevo</button>
+    </div>
+  </div>
+  <div class="row" *ngIf="locales.length == 0">
+    <div class="col-md-12">
+      <div class="alert alert-info" role="alert">
+        No se encontraron resultados.
+      </div>
+    </div>
+  </div>
+  <div class="table-responsive" *ngIf="locales.length > 0">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Direccion</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let local of locales; index as i" >
+          <tr>
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ local.nombre }}</td>
+            <td>{{ local.direccion }}</td>
+            <td>
+              <button (click)="verLocal(local.id)"  [routerLink]="['/local', local.id]" type="button" class="btn btn-sm btn-light">Ver</button>
+              <button (click)="editarLocal(local.id)" [routerLink]="['/local', local.id,'edit']" type="button" class="btn btn-sm btn-primary">Editar</button>
+              <button (click)="borrarLocal(local.id)" type="button" class="btn btn-sm btn-danger">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+</div>
